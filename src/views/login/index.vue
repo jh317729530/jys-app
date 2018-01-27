@@ -39,6 +39,17 @@ export default {
       loading: false,
       pwdType: 'password'
     }
+  },
+  methods: {
+    handleLogin() {
+      this.$axios({
+        method: 'POST',
+        withCredentials: false,
+        url: '/api/test/test'
+      }).then(function(res) {
+        console.log(res)
+      })
+    }
   }
 }
 </script>
