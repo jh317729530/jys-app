@@ -42,13 +42,25 @@ export default {
   },
   methods: {
     handleLogin() {
-      this.$axios({
-        method: 'POST',
-        withCredentials: false,
-        url: '/api/test/test'
-      }).then(function(res) {
-        console.log(res)
+      this.loading = true
+      const param = new URLSearchParams()
+      param.append('username', this.loginForm.username)
+      param.append('password', this.loginForm.password)
+      this.$axios.post('/api/user/login', param).then(function(res) {
+        this.$store.dispatch('setToken', res)
+        console.log(this.$store.state.user.token)
+      }).catch(() => {
+        this.loading = false
       })
+
+      // this.loading = true
+      // this.$store.dispatch('Login', this.loginForm).then(() => {
+      //   this.loading = false
+      //   console.log('登录成功啦')
+      //   console.log(this.$store.state.user.token)
+      // }).catch(() => {
+      //   this.loading = false
+      // })
     }
   }
 }
