@@ -24,6 +24,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'login',
   data() {
@@ -46,21 +47,20 @@ export default {
       const param = new URLSearchParams()
       param.append('username', this.loginForm.username)
       param.append('password', this.loginForm.password)
-      this.$axios.post('/api/user/login', param).then(function(res) {
-        this.$store.dispatch('setToken', res)
-        console.log(this.$store.state.user.token)
+      console.log(111)
+      this.$axios.post('/api/user/login', param).then(res => {
+        console.log(res)
+        console.log(res.data.info)
+        this.$store.dispatch('setToken', res.data.info).then(() => {
+          this.loading = false
+          console.log('登录成功啦')
+          console.log(this.$store.state.user.token)
+        }).catch(() => {
+          this.loading = false
+        })
       }).catch(() => {
         this.loading = false
       })
-
-      // this.loading = true
-      // this.$store.dispatch('Login', this.loginForm).then(() => {
-      //   this.loading = false
-      //   console.log('登录成功啦')
-      //   console.log(this.$store.state.user.token)
-      // }).catch(() => {
-      //   this.loading = false
-      // })
     }
   }
 }

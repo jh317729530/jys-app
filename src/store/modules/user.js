@@ -1,3 +1,5 @@
+import { login } from '../../api/login'
+
 // import { login } from '@/api/login'
 // import { setToken } from '@/utils/auth'
 
@@ -28,7 +30,17 @@ const user = {
     //       reject(error)
     //     })
     //   })
-      commit('SET_TOKEN', data.token)
+      commit('SET_TOKEN', data)
+    },
+    Login({ commit }, data) {
+      return new Promise((resolve, reject) => {
+        login(data.username, data.password).then(response => {
+          const data = response.data
+          commit('SET_TOKEN', data.token)
+        }).catch(error => {
+          reject(error)
+        })
+      })
     }
   }
 }
