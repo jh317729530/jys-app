@@ -10,7 +10,9 @@ const user = {
   },
   mutations: {
     SET_TOKEN: (state, token) => {
+      console.log(token)
       state.token = token
+      console.log(state.token)
     },
     SET_NAME: (state, name) => {
       state.name = name
@@ -19,24 +21,14 @@ const user = {
   actions: {
     // 登录
     setToken({ commit }, data) {
-    //   const username = userInfo.username.trim()
-    //   return new Promise((resolve, reject) => {
-    //     login(username, userInfo.password).then(response => {
-    //       const data = response.data
-    //       setToken(data.token)
-    //       commit('SET_TOKEN', data.token)
-    //       resolve()
-    //     }).catch(error => {
-    //       reject(error)
-    //     })
-    //   })
       commit('SET_TOKEN', data)
     },
-    Login({ commit }, data) {
+    // 登录
+    Login({ commit }, info) {
       return new Promise((resolve, reject) => {
-        login(data.username, data.password).then(response => {
-          const data = response.data
-          commit('SET_TOKEN', data.token)
+        login(info).then(data => {
+          commit('SET_TOKEN', data.info)
+          resolve()
         }).catch(error => {
           reject(error)
         })
