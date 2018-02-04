@@ -8,6 +8,7 @@ import '@/icons'
 import store from './store'
 
 import App from './App.vue'
+import '@/permission'
 
 Vue.use(ElementUI)
 // Vue.prototype.$axios = axios
