@@ -25,6 +25,8 @@
 
 <script>
 
+import axios from '../../api/common'
+
 export default {
   name: 'login',
   data() {
@@ -44,11 +46,11 @@ export default {
   methods: {
     handleLogin() {
       this.loading = true
-      const param = new URLSearchParams()
-      param.append('username', this.loginForm.username)
-      param.append('password', this.loginForm.password)
+      // const param = new URLSearchParams()
+      // param.append('username', this.loginForm.username)
+      // param.append('password', this.loginForm.password)
       console.log(111)
-      this.$axios.post('/api/user/login', param).then(res => {
+      axios.post('api/user/login', this.loginForm).then(res => {
         console.log(res)
         console.log(res.data.info)
         this.$store.dispatch('setToken', res.data.info).then(() => {
