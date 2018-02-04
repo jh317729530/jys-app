@@ -25,8 +25,6 @@
 
 <script>
 
-import axios from '../../api/common'
-
 export default {
   name: 'login',
   data() {
@@ -46,23 +44,32 @@ export default {
   methods: {
     handleLogin() {
       this.loading = true
-      // const param = new URLSearchParams()
-      // param.append('username', this.loginForm.username)
-      // param.append('password', this.loginForm.password)
-      console.log(111)
-      axios.post('api/user/login', this.loginForm).then(res => {
-        console.log(res)
-        console.log(res.data.info)
-        this.$store.dispatch('setToken', res.data.info).then(() => {
-          this.loading = false
-          console.log('登录成功啦')
-          console.log(this.$store.state.user.token)
-        }).catch(() => {
-          this.loading = false
-        })
+      // 验证
+
+      this.$store.dispatch('Login', this.loginForm).then(() => {
+        console.log(1111)
+        this.loading = false
+        // 切换到主页面
+        console.log(this.$store.state.user.token)
       }).catch(() => {
         this.loading = false
       })
+
+      // this.loading = true
+      // console.log(111)
+      // axios.post('api/user/login', this.loginForm).then(res => {
+      //   console.log(res)
+      //   console.log(res.data.info)
+      //   this.$store.dispatch('setToken', res.data.info).then(() => {
+      //     this.loading = false
+      //     console.log('登录成功啦')
+      //     console.log(this.$store.state.user.token)
+      //   }).catch(() => {
+      //     this.loading = false
+      //   })
+      // }).catch(() => {
+      //   this.loading = false
+      // })
     }
   }
 }
