@@ -1,4 +1,10 @@
-// import axios from 'axios'
+import axios from './common'
+
+const baseURL = '/api'
+
+export function login(data) {
+  return axios.post(baseURL + '/user/login', data)
+}
 
 // export function login(username, password) {
 //   console.log('111111111')
