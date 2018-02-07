@@ -47,10 +47,9 @@ export default {
       // 验证
 
       this.$store.dispatch('Login', this.loginForm).then(() => {
-        console.log(1111)
         this.loading = false
         // 切换到主页面
-        console.log(this.$store.state.user.token)
+        this.$router.push({ path: '/' })
       }).catch(() => {
         this.loading = false
       })
