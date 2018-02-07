@@ -1,5 +1,6 @@
 import axios from 'axios'
 import qs from 'qs'
+import store from '../store'
 
 // 全局默认配置
 // 设置post请求头
@@ -15,6 +16,11 @@ axios.interceptors.request.use(config => {
     config.data = qs.stringify(config.data)
   }
 
+  if (store.getters.token) {
+    console.log('到这里')
+    config.headers.Authorization = 'token ${store.state.token}'
+  }
+
   return config
 }, () => {
   // 异常处理
@@ -22,8 +28,11 @@ axios.interceptors.request.use(config => {
 
 // 响应拦截
 axios.interceptors.response.use(response => {
+  // const data = response.data
+
+  // 根据不同的code做不同的处理
   return response.data
-}, error => {
+}, error => { // 返回状态码不为200时的错误处理
   return Promise.reject(error)
 })
 
