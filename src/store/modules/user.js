@@ -10,9 +10,7 @@ const user = {
   },
   mutations: {
     SET_TOKEN: (state, token) => {
-      console.log(token)
       state.token = token
-      console.log(state.token)
     },
     SET_NAME: (state, name) => {
       state.name = name
@@ -33,6 +31,11 @@ const user = {
           reject(error)
         })
       })
+    },
+
+    // 登出
+    LogOut({ commit, state }) {
+      commit('SET_TOKEN', '')
     }
   }
 }
