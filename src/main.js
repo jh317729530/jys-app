@@ -1,3 +1,4 @@
+import '@/styles/index.scss'
 import Vue from 'vue'
 import 'normalize.css'
 import ElementUI from 'element-ui'
