@@ -46,7 +46,8 @@ export default {
       this.loading = true
       // 验证
 
-      this.$store.dispatch('Login', this.loginForm).then(function() {
+      this.$store.dispatch('Login', this.loginForm).then(() => {
+        console.log(this)
         console.log('11')
         this.loading = false
         // 切换到主页面
