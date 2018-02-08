@@ -1,4 +1,5 @@
 import { login } from '../../api/login'
+// import { Message } from 'element-ui'
 
 // import { login } from '@/api/login'
 // import { setToken } from '@/utils/auth'
@@ -25,9 +26,13 @@ const user = {
     Login({ commit }, info) {
       return new Promise((resolve, reject) => {
         login(info).then(data => {
+          if (data.code === '501') {
+            reject(data)
+          }
           commit('SET_TOKEN', data.info)
           resolve()
         }).catch(error => {
+          // console.log('这里' + error)
           reject(error)
         })
       })

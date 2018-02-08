@@ -7,12 +7,13 @@ import router from './router'
 import '@/icons'
 // import axios from './utils/api'
 import store from './store'
-
+import { Message } from 'element-ui'
 import App from './App.vue'
 import '@/permission'
 
 Vue.use(ElementUI)
 // Vue.prototype.$axios = axios
+Vue.prototype.$message = Message
 
 new Vue({
   el: '#app',

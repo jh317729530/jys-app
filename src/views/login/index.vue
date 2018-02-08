@@ -46,29 +46,16 @@ export default {
       this.loading = true
       // 验证
 
-      this.$store.dispatch('Login', this.loginForm).then(() => {
+      this.$store.dispatch('Login', this.loginForm).then(function() {
+        console.log('11')
         this.loading = false
         // 切换到主页面
         this.$router.push({ path: '/' })
-      }).catch(() => {
+      }).catch(err => {
+        console.log(err)
+        this.$message.error(err.msg)
         this.loading = false
       })
-
-      // this.loading = true
-      // console.log(111)
-      // axios.post('api/user/login', this.loginForm).then(res => {
-      //   console.log(res)
-      //   console.log(res.data.info)
-      //   this.$store.dispatch('setToken', res.data.info).then(() => {
-      //     this.loading = false
-      //     console.log('登录成功啦')
-      //     console.log(this.$store.state.user.token)
-      //   }).catch(() => {
-      //     this.loading = false
-      //   })
-      // }).catch(() => {
-      //   this.loading = false
-      // })
     }
   }
 }
