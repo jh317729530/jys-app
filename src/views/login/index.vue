@@ -17,7 +17,7 @@
         </el-form-item>
         <el-row type="flex" class="row-bg" justify="space-around">
           <el-col :span="11"><el-button type="primary" style="width:100%;" :loading="loading" @click.native.prevent="handleLogin">登录</el-button></el-col>
-          <el-col :span="11"><el-button type="success" style="width:100%;" :loading="loading" @click.native.prevent="handleLogin">注册</el-button></el-col>
+          <el-col :span="11"><el-button type="success" style="width:100%;" :loading="loading" @click.native.prevent="toSignup">注册</el-button></el-col>
         </el-row>
     </el-form>
   </div>
@@ -62,6 +62,10 @@ export default {
         this.$message.error(err.message)
         this.loading = false
       })
+    },
+
+    toSignup() {
+      this.$router.push({ path: '/signup' })
     }
   }
 }

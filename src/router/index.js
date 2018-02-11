@@ -32,6 +32,12 @@ export const constantRouterMap = [
     ]
   },
 
+  {
+    path: '/signup',
+    hidden: true,
+    component: () => import('@/views/signup/index')
+  },
+
   { path: '*', redirect: '/404', hidden: true }
 ]
 
