@@ -17,7 +17,6 @@ axios.interceptors.request.use(config => {
   }
 
   if (store.getters.token) {
-    console.log('到这里')
     config['headers']['common']['token'] = store.getters.token
   }
 
@@ -28,11 +27,40 @@ axios.interceptors.request.use(config => {
 
 // 响应拦截
 axios.interceptors.response.use(response => {
-  // const data = response.data
+  const data = response.data
+  // 错误处理
+  if (data.code !== '200') {
+    const err = new Error(data.msg)
+    err.data = data
+    throw err
+  }
 
   // 根据不同的code做不同的处理
   return response.data
 }, error => { // 返回状态码不为200时的错误处理
+  if (error) {
+    switch (error.data.code) {
+      case '400':
+        error.message = '请求错误'
+        break
+
+      case '500':
+        error.message = '系统内部错误'
+        break
+
+      case '4010':
+        error.message = 'token不能为空'
+        break
+
+      case '4011':
+        error.message = 'token不合法'
+        break
+
+      case '4012':
+        error.message = 'token已失效'
+        break
+    }
+  }
   return Promise.reject(error)
 })
 
