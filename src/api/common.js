@@ -18,7 +18,7 @@ axios.interceptors.request.use(config => {
 
   if (store.getters.token) {
     console.log('到这里')
-    config.headers.Authorization = 'token ${store.state.token}'
+    config['headers']['common']['token'] = store.getters.token
   }
 
   return config

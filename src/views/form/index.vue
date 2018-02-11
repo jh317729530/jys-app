@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import axios from '../../api/common'
 export default {
   data() {
     return {
@@ -23,7 +24,7 @@ export default {
   },
   methods: {
     onSubmit() {
-      this.$message('submit!')
+      axios.get('/api/user/test')
     }
   }
 }
