@@ -1,7 +1,7 @@
 <template>
   <div class="signup-container">
       <el-form ref="signupForm" :model="loginForm" label-position="left" label-width="0px"
-      class="card-box login-form">
+      class="card-box signup-form">
         <el-form-item label="用户名">
             <el-input v-model="signupForm.username"></el-input>
         </el-form-item>
@@ -46,5 +46,14 @@ export default {
       -webkit-text-fill-color: #fff !important;
     }
   }
+
+  .signup-form {
+      position: absolute;
+      left: 0;
+      right: 0;
+      width: 400px;
+      padding: 35px 35px 15px 35px;
+      margin: 120px auto;
+    }
 </style>
 
