@@ -47,11 +47,15 @@ export default {
       // 验证
 
       this.$store.dispatch('Login', this.loginForm).then(() => {
-        console.log(this)
-        console.log('11')
         this.loading = false
-        // 切换到主页面
-        this.$router.push({ path: '/' })
+        // 获取用户信息
+        this.$store.dispatch('GetInfo').then(() => {
+          // 切换到主页面
+          this.$router.push({ path: '/' })
+        }).catch(() => {
+          this.$message.error('获取用户信息失败，请重新登录')
+          this.loading = false
+        })
       }).catch(err => {
         console.log(err)
         this.$message.error(err.msg)

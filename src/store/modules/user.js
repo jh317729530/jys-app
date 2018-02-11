@@ -1,4 +1,4 @@
-import { login } from '../../api/login'
+import { login, getUserInfo } from '../../api/login'
 // import { Message } from 'element-ui'
 
 // import { login } from '@/api/login'
@@ -7,7 +7,8 @@ import { login } from '../../api/login'
 const user = {
   state: {
     token: '',
-    name: ''
+    name: '',
+    avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80'
   },
   mutations: {
     SET_TOKEN: (state, token) => {
@@ -15,6 +16,11 @@ const user = {
     },
     SET_NAME: (state, name) => {
       state.name = name
+    },
+    SET_AVATAR: (state, avatar) => {
+      if (avatar) {
+        state.avatar = avatar
+      }
     }
   },
   actions: {
@@ -38,9 +44,33 @@ const user = {
       })
     },
 
+    // 获取用户信息
+    GetInfo({ commit, state }) {
+      return new Promise((resolve, reject) => {
+        getUserInfo().then(data => {
+          if (data.code === '501') {
+            reject(data)
+          }
+          commit('SET_NAME', data.info.name)
+          commit('SET_AVATAR', data.info.avatar)
+          resolve()
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
+
     // 登出
     LogOut({ commit, state }) {
       commit('SET_TOKEN', '')
+    },
+
+    // 前端 登出
+    FedLogOut({ commit }) {
+      return new Promise(resolve => {
+        commit('SET_TOKEN', '')
+        resolve()
+      })
     }
   }
 }

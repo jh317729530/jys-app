@@ -6,6 +6,10 @@ export function login(data) {
   return axios.post(baseURL + '/user/login', data)
 }
 
+export function getUserInfo() {
+  return axios.post(baseURL + '/user/info')
+}
+
 // export function login(username, password) {
 //   console.log('111111111')
 //   console.log('2222222')

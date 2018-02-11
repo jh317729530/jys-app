@@ -13,7 +13,6 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/test',
     name: 'Test',
-    hidden: true,
     children: [{
       path: 'test',
       component: () => import('@/views/test/index')
@@ -29,10 +28,11 @@ export const constantRouterMap = [
         name: 'Form',
         component: () => import('@/views/form/index'),
         meta: { title: 'Form', icon: 'form' }
-      },
-      { path: '*', redirect: '/404', hidden: true }
+      }
     ]
-  }
+  },
+
+  { path: '*', redirect: '/404', hidden: true }
 ]
 
 export default new Router({
