@@ -34,40 +34,57 @@
     </el-table>
 
     <div class="pagination-container">
-      <el-pagination background @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page.sync="listQuery.page"
-        :page-sizes="[10,20,30]" :page-size="listQuery.pageSize" layout="total, sizes, prev, pager, next, jumper" :total="total"
+      <el-pagination 
+        background 
+        @size-change="handleSizeChange" 
+        @current-change="handleCurrentChange" 
+        :current-page.sync="currentPage"
+        :page-sizes="[10,20,30]" 
+        :page-size="pageSize" 
+        layout="total, sizes, prev, pager, next, jumper" 
+        :total="pageTotal"
       ></el-pagination>
     </div>
   </div>
 </template>
 
 <script>
+import tableMixins from '@/config/mixins/table'
+import { teacherList } from '@/service'
 export default {
   name: 'teacherList',
+  mixins: [tableMixins],
   data() {
     return {
-      teacherData: [{
-        workNumber: '13456',
-        name: '甘俊辉',
-        age: 22,
-        sex: 1
-      },
-      {
-        workNumber: '13153',
-        name: '甘俊',
-        age: 22,
-        sex: 2
-      }],
-
-      total: 20,
-      listQuery: {
-        pageNo: 1,
-        pageSize: 10
+      teacherData: [],
+      query: {
+        name: ''
       }
     }
   },
-
+  mounted() {
+    const self = this
+    console.log(self.pageTotal)
+    self.getData()
+  },
   methods: {
+    getData() {
+      const self = this
+      const paramsObj = {
+        pageNo: self.currentPage,
+        pageSize: self.pageSize,
+        name: self.query.name
+      }
+      console.log('尝试获取数据')
+      teacherList(paramsObj).then(res => {
+        console.log(res)
+        if (res.status === 'true') {
+          self.pageTotal = res.info.total
+          self.teacherData = res.info.result
+        }
+      })
+    },
+
     sexFormatter: function(row, column) {
       if (row.sex) {
         if (row.sex === 1) {
