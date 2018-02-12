@@ -38,6 +38,19 @@ export const constantRouterMap = [
     component: () => import('@/views/signup/index')
   },
 
+  {
+    path: '/teacher',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        name: '教师列表',
+        component: () => import('@/views/teacher/index'),
+        meta: { title: '教师列表', icon: 'form' }
+      }
+    ]
+  },
+
   { path: '*', redirect: '/404', hidden: true }
 ]
 
