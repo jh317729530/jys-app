@@ -15,7 +15,7 @@
         <el-option >
         </el-option>
       </el-select>
-      <el-button class="filter-item" type="primary" v-waves icon="el-icon-search" >查询</el-button>
+      <el-button class="filter-item" v-waves type="primary" icon="el-icon-search" >查询</el-button>
       <el-button class="filter-item" style="margin-left: 10px;" type="primary" icon="el-icon-edit">新增</el-button>
     </div>
 
@@ -50,9 +50,13 @@
 
 <script>
 import tableMixins from '@/config/mixins/table'
+import waves from '@/directive/waves'
 import { teacherList } from '@/service'
 export default {
   name: 'teacherList',
+  directives: {
+    waves
+  },
   mixins: [tableMixins],
   data() {
     return {
@@ -96,11 +100,19 @@ export default {
     },
 
     handleSizeChange(val) {
-      console.log('每页显示记录数改变' + val)
+      if (this.pageSize === val) {
+        return
+      }
+      this.pageSize = val
+      this.getData()
     },
 
     handleCurrentChange(val) {
-      console.log('处理当前页跳转' + val)
+      if (this.pageNp === val) {
+        return
+      }
+      this.pageNo = val
+      this.getData()
     }
   }
 }
