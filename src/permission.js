@@ -11,10 +11,24 @@ router.beforeEach((to, from, next) => {
     next()
     NProgress.done()
   } else {
-    if (store.getters.token === '') {
+    if (!store.getters.token) {
       Message.error('请先登录')
       next({ path: '/login' })
     } else {
+      // 判断当前用户是否已拉取完user_info信息
+      if (store.getters.getUserInfoed === 'no') {
+        store.commit('SET_PERMISSION', '')
+
+        store.dispatch('getPermission').then(() => {
+          // 动态添加路由
+
+          store.dispatch('getUserInfo').then(res => {
+            next({ ...to })
+          }).catch(err => {
+            Message.error(err)
+          })
+        })
+      }
       next()
     }
   }
