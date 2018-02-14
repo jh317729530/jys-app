@@ -22,6 +22,9 @@ const user = {
       if (avatar) {
         state.avatar = avatar
       }
+    },
+    SET_LOGIN: (state, inline) => {
+      state.getUserInfoed = inline
     }
   },
   actions: {
@@ -46,7 +49,7 @@ const user = {
     },
 
     // 获取用户信息
-    GetInfo({ commit, state }) {
+    getUserInfo({ commit, state }) {
       return new Promise((resolve, reject) => {
         getUserInfo().then(data => {
           if (data.code === '501') {
@@ -54,6 +57,7 @@ const user = {
           }
           commit('SET_NAME', data.info.name)
           commit('SET_AVATAR', data.info.avatar)
+          commit('SET_LOGIN', 'yes')
           resolve()
         }).catch(error => {
           reject(error)
