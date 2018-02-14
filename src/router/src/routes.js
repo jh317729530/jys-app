@@ -10,6 +10,7 @@ export const constantRouterMap = [
     component: Layout,
     redirect: '/test',
     name: 'Test',
+    hidden: true,
     children: [{
       path: 'test',
       component: () => import('@/views/test/index')
